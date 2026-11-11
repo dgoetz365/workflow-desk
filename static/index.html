@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Workflow Desk · Workshop lending</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to requests</a>
+  <header class="app-header">
+    <div><span class="wordmark">Workflow Desk</span><span class="header-context">Workshop lending</span></div>
+    <span class="demo-label">Fictional local demo</span>
+  </header>
+  <main>
+    <div class="page-heading">
+      <div><h1>Equipment requests</h1><p>Review what’s needed. Keep track of what’s out.</p></div>
+      <div class="heading-actions"><button id="refresh" type="button">Refresh</button><button id="new-request" class="primary" type="button" aria-expanded="false" aria-controls="request-form-panel">New request</button></div>
+    </div>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <div id="recovery" class="recovery" hidden><span>The outcome is not yet confirmed. Retry uses the same command, so a saved change won’t be duplicated.</span><button id="retry-command" type="button">Retry same command</button></div>
+    <noscript><p class="notice error">Enable JavaScript to use the request workspace. The application requires no external scripts.</p></noscript>
+    <section class="inventory-section" aria-labelledby="inventory-title">
+      <div class="section-heading"><h2 id="inventory-title">Available equipment</h2><p>Pending requests don’t hold stock.</p></div>
+      <ul id="inventory" class="inventory"><li class="loading">Loading inventory…</li></ul>
+    </section>
+    <section id="request-form-panel" class="request-form-panel" aria-labelledby="form-title" hidden>
+      <div class="section-heading"><h2 id="form-title">New equipment request</h2><button id="close-form" class="quiet" type="button">Close form</button></div>
+      <p class="muted">Use fictional details for this local demonstration.</p>
+      <form id="request-form">
+        <div class="form-grid">
+          <label>Borrower name<input id="person" name="person" maxlength="80" required autocomplete="off" placeholder="e.g. Rowan Lane"></label>
+          <label>Equipment<select id="item" name="item" required></select></label>
+          <label>Quantity<input id="quantity" name="quantity" type="number" min="1" max="1000000" step="1" value="1" required inputmode="numeric" aria-describedby="quantity-help"></label>
+          <label class="purpose-label">What is it for?<input id="purpose" name="purpose" maxlength="240" required placeholder="e.g. Build a display stand"></label>
+        </div>
+        <div class="form-footer"><p id="quantity-help" class="muted">Approval reserves equipment; submitting a request does not.</p><button id="submit-request" type="submit" class="primary">Submit request</button></div>
+      </form>
+    </section>
+    <div id="workspace" class="workspace" tabindex="-1">
+      <section class="queue" aria-labelledby="queue-title">
+        <div class="section-heading"><h2 id="queue-title">Request queue <span id="queue-count" class="count"></span></h2><span id="updated" class="updated">Connecting…</span></div>
+        <div class="filters">
+          <label class="search-label">Search requests<input id="search" type="search" placeholder="Borrower, equipment, or purpose" autocomplete="off"></label>
+          <label>Status<select id="status-filter"><option value="all">All requests</option><option value="pending">Pending</option><option value="approved">Approved / out</option><option value="returned">Returned</option><option value="declined">Declined</option></select></label>
+        </div>
+        <div class="table-wrap">
+          <table><caption class="sr-only">Equipment requests. Select a borrower to review the request.</caption><thead><tr><th scope="col">Borrower / equipment</th><th scope="col" class="numeric">Qty</th><th scope="col">Status</th></tr></thead><tbody id="request-rows"><tr><td colspan="3" class="loading">Loading requests…</td></tr></tbody></table>
+        </div>
+        <p id="empty-queue" class="empty-state" hidden>No requests match these filters. Change the status or clear the search.</p>
+      </section>
+      <aside class="detail" aria-labelledby="detail-title">
+        <div class="detail-header"><h2 id="detail-title" tabindex="-1">Request details</h2><span id="detail-id" class="muted"></span></div>
+        <div id="detail-body"><p class="empty-state">Select a request to review the equipment, decision, and history.</p></div>
+      </aside>
+    </div>
+    <footer><span>Illustrative software · Synthetic data · Local use only</span><span>Changes are saved to this computer.</span></footer>
+  </main>
+</body>
+</html>
